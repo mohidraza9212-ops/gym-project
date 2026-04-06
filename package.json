@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Classes — IronPeak</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+  <div class="logo">⚡ IRONPEAK</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="members.html">Members</a>
+    <a href="classes.html" class="active">Classes</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<div class="container" style="padding-top:40px">
+  <h2>CLASSES & TRAINERS</h2>
+
+  <div class="cards">
+    <div class="card"><div class="icon">🏋️</div><h4>Powerlifting</h4><p>Mon / Wed / Fri — 6:00 AM</p><span class="badge">Advanced</span></div>
+    <div class="card"><div class="icon">🥊</div><h4>Boxing Cardio</h4><p>Tue / Thu — 7:00 AM</p><span class="badge">Beginner</span></div>
+    <div class="card"><div class="icon">🧘</div><h4>Yoga</h4><p>Mon / Wed — 8:00 PM</p><span class="badge">All Levels</span></div>
+    <div class="card"><div class="icon">🚴</div><h4>Spin Cycling</h4><p>Daily — 5:30 AM</p><span class="badge">Intermediate</span></div>
+    <div class="card"><div class="icon">🤸</div><h4>CrossFit HIIT</h4><p>Tue / Thu / Sat — 6 PM</p><span class="badge">Advanced</span></div>
+    <div class="card"><div class="icon">💪</div><h4>Muscle Building</h4><p>Mon–Sat — 9:00 AM</p><span class="badge">Beginner</span></div>
+  </div>
+
+  <h2 style="margin-top:50px">OUR TRAINERS</h2>
+  <div class="cards">
+    <div class="card" style="text-align:center">
+      <div class="avatar">U</div><h4>Usman Tariq</h4><p>Powerlifting & Strength</p><p style="color:#888">8 years exp</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="avatar">F</div><h4>Fatima Malik</h4><p>Yoga & Wellness</p><p style="color:#888">5 years exp</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="avatar">B</div><h4>Bilal Akhtar</h4><p>Boxing & Cardio</p><p style="color:#888">6 years exp</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="avatar">Z</div><h4>Zara Hussain</h4><p>CrossFit & HIIT</p><p style="color:#888">4 years exp</p>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 IronPeak Gym &nbsp;|&nbsp; CSC-251 Web Technologies</footer>
+</body>
+</html>

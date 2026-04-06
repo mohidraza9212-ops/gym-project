@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — IronPeak</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+  <div class="logo">⚡ IRONPEAK</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="members.html">Members</a>
+    <a href="classes.html">Classes</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+</nav>
+
+<div class="container" style="padding-top:40px">
+  <h2>CONTACT US</h2>
+  <div class="two-col">
+    <div>
+      <div class="form-box">
+        <h3>Send a Message</h3>
+        <input id="cName" placeholder="Your Name" style="margin-bottom:10px">
+        <input id="cEmail" placeholder="Your Email" style="margin-bottom:10px">
+        <input id="cSub" placeholder="Subject" style="margin-bottom:10px">
+        <textarea id="cMsg" rows="4" placeholder="Your message..."></textarea>
+        <button class="btn" style="margin-top:12px;width:100%" onclick="send()">Send Message</button>
+        <div id="cAlert"></div>
+      </div>
+    </div>
+    <div>
+      <div class="form-box">
+        <h3>Find Us</h3>
+        <p>📍 Satellite Town, Rawalpindi</p>
+        <p>📞 051-1234567</p>
+        <p>✉️ info@ironpeakgym.pk</p>
+        <p>⏰ Mon–Sat: 5 AM – 11 PM</p>
+      </div>
+      <div class="form-box" style="margin-top:16px">
+        <h3>Recent Messages</h3>
+        <div id="msgs"><p style="color:#666">No messages yet.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 IronPeak Gym &nbsp;|&nbsp; CSC-251 Web Technologies</footer>
+
+<script>
+let enquiries = []
+
+function send() {
+  const name  = document.getElementById('cName').value.trim()
+  const email = document.getElementById('cEmail').value.trim()
+  const msg   = document.getElementById('cMsg').value.trim()
+  if (!name || !email || !msg) { alert('Fill all fields!'); return }
+  enquiries.unshift({ name, email, msg, date: new Date().toLocaleDateString() })
+  document.getElementById('cName').value = ''
+  document.getElementById('cEmail').value = ''
+  document.getElementById('cSub').value = ''
+  document.getElementById('cMsg').value = ''
+  document.getElementById('cAlert').innerHTML = '<p class="ok">✅ Message sent!</p>'
+  setTimeout(() => document.getElementById('cAlert').innerHTML = '', 2500)
+  renderMsgs()
+}
+
+function renderMsgs() {
+  document.getElementById('msgs').innerHTML = enquiries.slice(0,4).map(e => `
+    <div style="border-bottom:1px solid #222;padding:8px 0;font-size:.85rem">
+      <strong>${e.name}</strong> <span style="color:#666">${e.date}</span>
+      <p style="color:#ccc;margin:3px 0">${e.msg}</p>
+    </div>`).join('')
+}
+</script>
+</body>
+</html>

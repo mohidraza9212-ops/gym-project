@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Members — IronPeak</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+  <div class="logo">⚡ IRONPEAK</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="members.html" class="active">Members</a>
+    <a href="classes.html">Classes</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<div class="container" style="padding-top:40px">
+  <h2>MEMBER MANAGEMENT</h2>
+
+  <!-- Add Form -->
+  <div class="form-box">
+    <h3>Add New Member</h3>
+    <div class="form-row">
+      <input id="name"  placeholder="Full Name">
+      <input id="email" placeholder="Email">
+      <input id="phone" placeholder="Phone">
+      <select id="plan">
+        <option>Monthly</option>
+        <option>Quarterly</option>
+        <option>Yearly</option>
+      </select>
+      <button class="btn" onclick="addMember()">Add</button>
+    </div>
+    <div id="msg"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <table id="tbl">
+      <thead>
+        <tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Plan</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<footer>© 2026 IronPeak Gym &nbsp;|&nbsp; CSC-251 Web Technologies</footer>
+
+<script>
+async function load() {
+  const res = await fetch('/api/members')
+  const data = await res.json()
+  const tbody = document.getElementById('tbody')
+  tbody.innerHTML = data.map(m => `
+    <tr id="row-${m.id}">
+      <td>${m.id}</td>
+      <td>${m.name}</td>
+      <td>${m.email}</td>
+      <td>${m.phone}</td>
+      <td><span class="badge">${m.plan}</span></td>
+      <td>
+        <button class="btn-sm edit" onclick="editRow(${m.id},'${m.name}','${m.email}','${m.phone}','${m.plan}')">Edit</button>
+        <button class="btn-sm del" onclick="del(${m.id})">Delete</button>
+      </td>
+    </tr>`).join('')
+}
+
+async function addMember() {
+  const name  = document.getElementById('name').value.trim()
+  const email = document.getElementById('email').value.trim()
+  const phone = document.getElementById('phone').value.trim()
+  const plan  = document.getElementById('plan').value
+  if (!name || !email || !phone) { alert('Fill all fields!'); return }
+  await fetch('/api/members', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, phone, plan })
+  })
+  document.getElementById('name').value = ''
+  document.getElementById('email').value = ''
+  document.getElementById('phone').value = ''
+  document.getElementById('msg').innerHTML = '<p class="ok">✅ Member added!</p>'
+  setTimeout(() => document.getElementById('msg').innerHTML = '', 2500)
+  load()
+}
+
+async function del(id) {
+  if (!confirm('Delete this member?')) return
+  await fetch('/api/members/' + id, { method: 'DELETE' })
+  load()
+}
+
+function editRow(id, name, email, phone, plan) {
+  const row = document.getElementById('row-' + id)
+  row.innerHTML = `
+    <td>${id}</td>
+    <td><input value="${name}" id="en"></td>
+    <td><input value="${email}" id="ee"></td>
+    <td><input value="${phone}" id="ep"></td>
+    <td>
+      <select id="epl">
+        <option ${plan=='Monthly'?'selected':''}>Monthly</option>
+        <option ${plan=='Quarterly'?'selected':''}>Quarterly</option>
+        <option ${plan=='Yearly'?'selected':''}>Yearly</option>
+      </select>
+    </td>
+    <td>
+      <button class="btn-sm edit" onclick="saveEdit(${id})">Save</button>
+      <button class="btn-sm del" onclick="load()">Cancel</button>
+    </td>`
+}
+
+async function saveEdit(id) {
+  await fetch('/api/members/' + id, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name:  document.getElementById('en').value,
+      email: document.getElementById('ee').value,
+      phone: document.getElementById('ep').value,
+      plan:  document.getElementById('epl').value
+    })
+  })
+  load()
+}
+
+load()
+</script>
+</body>
+</html>
