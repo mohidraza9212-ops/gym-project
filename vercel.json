@@ -1,20 +1,19 @@
 {
   "version": 2,
-  "rootDirectory": "gym",
   "builds": [
     {
-      "src": "server.js",
+      "src": "gym/server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server.js"
+      "dest": "gym/server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "public/$1"
+      "dest": "gym/public/$1"
     }
   ]
 }
